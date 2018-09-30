@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectBook } from '../actions';
+import { selectBook, fetchBooks } from '../actions';
 
 class BookList extends Component {
   renderList() {
@@ -13,6 +13,10 @@ class BookList extends Component {
   }
 
   render() {
+    if (this.props.books.length === 0) {
+      return <button onClick={() => this.props.fetchBooks()}>Fetch Books!</button>;
+    }
+
     return (
       <div>
         <ul>
@@ -31,7 +35,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    selectBook: selectBook,
+    selectBook,
+    fetchBooks,
   }, dispatch);
 }
 

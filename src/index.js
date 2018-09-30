@@ -5,10 +5,15 @@ import App from './components/App';
 
 // Reference: https://redux.js.org/basics/exampletodolist
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import reduxPromise from 'redux-promise';
 import rootReducer from './reducers';
 
-const store = createStore(rootReducer);
+// NOTE: 'redux-thunk' is another popular asynchronous middleware for Redux
+const store = createStore(rootReducer, applyMiddleware(reduxPromise));
+
+// Another way to create redux store
+// const store = applyMiddleware(reduxPromise)(createStore)(rootReducer);
 
 ReactDOM.render((
   <Provider store={store}>
